@@ -1,0 +1,8 @@
+TxBoto is a fork of Boto to support asynchronous request with Twisted reactor. 
+This project is written and maintained by Michael Franke.
+
+
+Development Lead
+````````````````
+
+- Michael Franke <mf at hlinux.net>

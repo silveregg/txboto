@@ -1,0 +1,2 @@
+include *.rst LICENSE AUTHORS txboto/endpoints.json version.py
+graft tests
