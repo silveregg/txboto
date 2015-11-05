@@ -2,7 +2,7 @@ TxBoto
 ======
 
 TxBoto is a Python implementation of the AWS (Amazon Web Services) API for
-Twisted. It's based on the famout Boto library. Currently it implements:
+Twisted. Its API is based on the Boto lib. Currently it implements:
 
 - DynamoDB2
 - Kinesis
