@@ -305,14 +305,14 @@ class Layer2(object):
 
     def new_batch_list(self):
         """
-        Return a new, empty :class:`boto.dynamodb.batch.BatchList`
+        Return a new, empty :class:`txboto.dynamodb.batch.BatchList`
         object.
         """
         return BatchList(self)
 
     def new_batch_write_list(self):
         """
-        Return a new, empty :class:`boto.dynamodb.batch.BatchWriteList`
+        Return a new, empty :class:`txboto.dynamodb.batch.BatchWriteList`
         object.
         """
         return BatchWriteList(self)
@@ -371,10 +371,10 @@ class Layer2(object):
         :type name: str
         :param name: The name of the table.
 
-        :type schema: :class:`boto.dynamodb.schema.Schema`
+        :type schema: :class:`txboto.dynamodb.schema.Schema`
         :param schema: The schema associated with the table.
 
-        :rtype: :class:`boto.dynamodb.table.Table`
+        :rtype: :class:`txboto.dynamodb.table.Table`
         :return: A Table object representing the table.
 
         """
@@ -388,7 +388,7 @@ class Layer2(object):
         :type name: str
         :param name: The name of the desired table.
 
-        :rtype: :class:`boto.dynamodb.table.Table`
+        :rtype: :class:`txboto.dynamodb.table.Table`
         :return: A Table object representing the table.
         """
         response = yield self.layer1.describe_table(name)
@@ -404,7 +404,7 @@ class Layer2(object):
         :type name: str
         :param name: The name of the desired table.
 
-        :type schema: :class:`boto.dynamodb.schema.Schema`
+        :type schema: :class:`txboto.dynamodb.schema.Schema`
         :param schema: The Schema object that defines the schema used
             by this table.
 
@@ -414,7 +414,7 @@ class Layer2(object):
         :type write_units: int
         :param write_units: The value for WriteCapacityUnits.
 
-        :rtype: :class:`boto.dynamodb.table.Table`
+        :rtype: :class:`txboto.dynamodb.table.Table`
         :return: A Table object representing the new Amazon DynamoDB table.
         """
         units = {
@@ -430,7 +430,7 @@ class Layer2(object):
         """
         Update the ProvisionedThroughput for the Amazon DynamoDB Table.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object whose throughput is being updated.
 
         :type read_units: int
@@ -454,7 +454,7 @@ class Layer2(object):
         Delete this table and all items in it.  After calling this
         the Table objects status attribute will be set to 'DELETING'.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object that is being deleted.
         """
         response = yield self.layer1.delete_table(table.name)
@@ -498,7 +498,7 @@ class Layer2(object):
         """
         Retrieve an existing item from the table.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object from which the item is retrieved.
 
         :type hash_key: int|long|float|str|unicode|Binary
@@ -524,7 +524,7 @@ class Layer2(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
         """
         key = self.build_key_from_values(table.schema, hash_key, range_key)
         response = yield self.layer1.get_item(
@@ -541,9 +541,9 @@ class Layer2(object):
         Return a set of attributes for a multiple items in
         multiple tables using their primary keys.
 
-        :type batch_list: :class:`boto.dynamodb.batch.BatchList`
+        :type batch_list: :class:`txboto.dynamodb.batch.BatchList`
         :param batch_list: A BatchList object which consists of a
-            list of :class:`boto.dynamoddb.batch.Batch` objects.
+            list of :class:`txboto.dynamoddb.batch.Batch` objects.
             Each Batch object contains the information about one
             batch of objects that you wish to retrieve in this
             request.
@@ -558,9 +558,9 @@ class Layer2(object):
         """
         Performs multiple Puts and Deletes in one batch.
 
-        :type batch_list: :class:`boto.dynamodb.batch.BatchWriteList`
+        :type batch_list: :class:`txboto.dynamodb.batch.BatchWriteList`
         :param batch_list: A BatchWriteList object which consists of a
-            list of :class:`boto.dynamoddb.batch.BatchWrite` objects.
+            list of :class:`txboto.dynamoddb.batch.BatchWrite` objects.
             Each Batch object contains the information about one
             batch of objects that you wish to put or delete.
         """
@@ -575,7 +575,7 @@ class Layer2(object):
         Store a new item or completely replace an existing item
         in Amazon DynamoDB.
 
-        :type item: :class:`boto.dynamodb.item.Item`
+        :type item: :class:`txboto.dynamodb.item.Item`
         :param item: The Item to write to Amazon DynamoDB.
 
         :type expected_value: dict
@@ -606,7 +606,7 @@ class Layer2(object):
         """
         Commit pending item updates to Amazon DynamoDB.
 
-        :type item: :class:`boto.dynamodb.item.Item`
+        :type item: :class:`txboto.dynamodb.item.Item`
         :param item: The Item to update in Amazon DynamoDB.  It is expected
             that you would have called the add_attribute, put_attribute
             and/or delete_attribute methods on this Item prior to calling
@@ -649,7 +649,7 @@ class Layer2(object):
         """
         Delete the item from Amazon DynamoDB.
 
-        :type item: :class:`boto.dynamodb.item.Item`
+        :type item: :class:`txboto.dynamodb.item.Item`
         :param item: The Item to delete from Amazon DynamoDB.
 
         :type expected_value: dict
@@ -683,7 +683,7 @@ class Layer2(object):
         """
         Perform a query on the table.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object that is being queried.
 
         :type hash_key: int|long|float|str|unicode|Binary
@@ -691,7 +691,7 @@ class Layer2(object):
             type of the value must match the type defined in the
             schema for the table.
 
-        :type range_key_condition: :class:`boto.dynamodb.condition.Condition`
+        :type range_key_condition: :class:`txboto.dynamodb.condition.Condition`
         :param range_key_condition: A Condition object.
             Condition object can be one of the following types:
 
@@ -746,9 +746,9 @@ class Layer2(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
 
-        :rtype: :class:`boto.dynamodb.layer2.TableGenerator`
+        :rtype: :class:`txboto.dynamodb.layer2.TableGenerator`
         """
         if range_key_condition:
             rkc = self.dynamize_range_key_condition(range_key_condition)
@@ -778,13 +778,13 @@ class Layer2(object):
         """
         Perform a scan of DynamoDB.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object that is being scanned.
 
         :type scan_filter: A dict
         :param scan_filter: A dictionary where the key is the
             attribute name and the value is a
-            :class:`boto.dynamodb.condition.Condition` object.
+            :class:`txboto.dynamodb.condition.Condition` object.
             Valid Condition objects include:
 
              * EQ - equal (1)
@@ -837,9 +837,9 @@ class Layer2(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
 
-        :rtype: :class:`boto.dynamodb.layer2.TableGenerator`
+        :rtype: :class:`txboto.dynamodb.layer2.TableGenerator`
         """
         if exclusive_start_key:
             esk = self.build_key_from_values(table.schema,

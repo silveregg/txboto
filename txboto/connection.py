@@ -342,7 +342,7 @@ class AWSAuthConnection(AWSBaseConnection):
                transient Internet errors by simply trying again.
                Also handles redirects.
 
-        This code was inspired by the S3Utils classes posted to the boto-users
+        This code was inspired by the S3Utils classes posted to the txboto-users
         Google group by Larry Bates.  Thanks!
 
         """
@@ -431,7 +431,7 @@ class AWSAuthConnection(AWSBaseConnection):
         elif ex:
             raise ex
         else:
-            msg = 'Please report this exception as a Boto Issue!'
+            msg = 'Please report this exception as a TxBoto Issue!'
             raise BotoClientError(msg)
 
     def make_request(self, method, path, headers=None, body='', host=None,

@@ -100,7 +100,7 @@ class BatchWrite(object):
 
     :ivar table: The Table object from which the item is retrieved.
 
-    :ivar puts: A list of :class:`boto.dynamodb.item.Item` objects
+    :ivar puts: A list of :class:`txboto.dynamodb.item.Item` objects
         that you want to write to DynamoDB.
 
     :ivar deletes: A list of scalar or tuple values.  Each element in the
@@ -142,7 +142,7 @@ class BatchWrite(object):
 class BatchList(list):
     """
     A subclass of a list object that contains a collection of
-    :class:`boto.dynamodb.batch.Batch` objects.
+    :class:`txboto.dynamodb.batch.Batch` objects.
     """
 
     def __init__(self, layer2):
@@ -155,7 +155,7 @@ class BatchList(list):
         """
         Add a Batch to this BatchList.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object in which the items are contained.
 
         :type keys: list
@@ -233,7 +233,7 @@ class BatchList(list):
 class BatchWriteList(list):
     """
     A subclass of a list object that contains a collection of
-    :class:`boto.dynamodb.batch.BatchWrite` objects.
+    :class:`txboto.dynamodb.batch.BatchWrite` objects.
     """
 
     def __init__(self, layer2):
@@ -244,10 +244,10 @@ class BatchWriteList(list):
         """
         Add a BatchWrite to this BatchWriteList.
 
-        :type table: :class:`boto.dynamodb.table.Table`
+        :type table: :class:`txboto.dynamodb.table.Table`
         :param table: The Table object in which the items are contained.
 
-        :type puts: list of :class:`boto.dynamodb.item.Item` objects
+        :type puts: list of :class:`txboto.dynamodb.item.Item` objects
         :param puts: A list of items that you want to write to DynamoDB.
 
         :type deletes: A list

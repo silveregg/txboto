@@ -84,14 +84,14 @@ class ACL(object):
                 entries_repr.append(e.__repr__())
         return '<%s>' % ', '.join(entries_repr)
 
-    # Method with same signature as boto.s3.acl.ACL.add_email_grant(), to allow
+    # Method with same signature as txboto.s3.acl.ACL.add_email_grant(), to allow
     # polymorphic treatment at application layer.
     def add_email_grant(self, permission, email_address):
         entry = Entry(type=USER_BY_EMAIL, email_address=email_address,
                       permission=permission)
         self.entries.entry_list.append(entry)
 
-    # Method with same signature as boto.s3.acl.ACL.add_user_grant(), to allow
+    # Method with same signature as txboto.s3.acl.ACL.add_user_grant(), to allow
     # polymorphic treatment at application layer.
     def add_user_grant(self, permission, user_id):
         entry = Entry(permission=permission, type=USER_BY_ID, id=user_id)

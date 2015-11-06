@@ -276,7 +276,7 @@ class HmacAuthV3HTTPHandler(AuthHandler, HmacKeys):
         """
         Add AWS3 authentication to a request.
 
-        :type req: :class`boto.connection.HTTPRequest`
+        :type req: :class`txboto.connection.HTTPRequest`
         :param req: The HTTPRequest object.
         """
         # This could be a retry.  Make sure the previous
@@ -407,7 +407,7 @@ class HmacAuthV4Handler(AuthHandler, HmacKeys):
     def payload(self, http_request):
         body = http_request.body
         # If the body is a file like object, we can use
-        # boto.utils.compute_hash, which will avoid reading
+        # txboto.utils.compute_hash, which will avoid reading
         # the entire body into memory.
         if hasattr(body, 'seek') and hasattr(body, 'read'):
             return txboto.utils.compute_hash(body, hash_algorithm=sha256)[0]
@@ -503,7 +503,7 @@ class HmacAuthV4Handler(AuthHandler, HmacKeys):
         """
         Add AWS4 authentication to a request.
 
-        :type req: :class`boto.connection.HTTPRequest`
+        :type req: :class`txboto.connection.HTTPRequest`
         :param req: The HTTPRequest object.
         """
         # This could be a retry.  Make sure the previous
@@ -980,7 +980,7 @@ def get_auth_handler(host, config, provider, requested_capability=None):
         An implementation of AuthHandler.
 
     Raises:
-        boto.exception.NoAuthHandlerFound
+        txboto.exception.NoAuthHandlerFound
     """
     ready_handlers = []
     auth_handlers = txboto.plugin.get_plugin(AuthHandler, requested_capability)
@@ -999,7 +999,7 @@ def get_auth_handler(host, config, provider, requested_capability=None):
             'Check your credentials' % (len(names), str(names)))
 
     # We select the last ready auth handler that was loaded, to allow users to
-    # customize how auth works in environments where there are shared boto
+    # customize how auth works in environments where there are shared txboto
     # config files (e.g., /etc/boto.cfg and ~/.boto): The more general,
     # system-wide shared configs should be loaded first, and the user's
     # customizations loaded last. That way, for example, the system-wide
@@ -1021,7 +1021,7 @@ def detect_potential_sigv4(func):
 
         if hasattr(self, 'region'):
             # If you're making changes here, you should also check
-            # ``boto/iam/connection.py``, as several things there are also
+            # ``txboto/iam/connection.py``, as several things there are also
             # endpoint-related.
             if getattr(self.region, 'endpoint', ''):
                 for test in SIGV4_DETECT:
@@ -1042,7 +1042,7 @@ def detect_potential_s3sigv4(func):
 
         if hasattr(self, 'host'):
             # If you're making changes here, you should also check
-            # ``boto/iam/connection.py``, as several things there are also
+            # ``txboto/iam/connection.py``, as several things there are also
             # endpoint-related.
             for test in SIGV4_DETECT:
                 if test in self.host:

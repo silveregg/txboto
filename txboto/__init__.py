@@ -138,10 +138,27 @@ def connect_dynamodb(aws_access_key_id=None,
     :type aws_secret_access_key: string
     :param aws_secret_access_key: Your AWS Secret Access Key
 
-    :rtype: :class:`boto.dynamodb.layer2.Layer2`
+    :rtype: :class:`txboto.dynamodb.layer2.Layer2`
     :return: A connection to the Layer2 interface for DynamoDB.
     """
-    from boto.dynamodb2.layer1 import DynamoDBConnection
+    from txboto.dynamodb.layer1 import Layer1
+    return Layer1(aws_access_key_id, aws_secret_access_key, **kwargs)
+
+
+def connect_dynamodb2(aws_access_key_id=None,
+                      aws_secret_access_key=None,
+                      **kwargs):
+    """
+    :type aws_access_key_id: string
+    :param aws_access_key_id: Your AWS Access Key ID
+
+    :type aws_secret_access_key: string
+    :param aws_secret_access_key: Your AWS Secret Access Key
+
+    :rtype: :class:`txboto.dynamodb.layer2.Layer2`
+    :return: A connection to the Layer2 interface for DynamoDB.
+    """
+    from txboto.dynamodb2.layer1 import DynamoDBConnection
     return DynamoDBConnection(aws_access_key_id, aws_secret_access_key, **kwargs)
 
 
@@ -157,7 +174,7 @@ def connect_kinesis(aws_access_key_id=None,
     :type aws_secret_access_key: string
     :param aws_secret_access_key: Your AWS Secret Access Key
 
-    rtype: :class:`boto.kinesis.layer1.KinesisConnection`
+    rtype: :class:`txboto.kinesis.layer1.KinesisConnection`
     :return: A connection to the Amazon Kinesis service
     """
     from txboto.kinesis.layer1 import KinesisConnection

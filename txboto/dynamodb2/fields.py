@@ -19,7 +19,7 @@ class BaseSchemaField(object):
         field.
 
         Optionally accepts a ``data_type`` parameter, which should be a
-        constant from ``boto.dynamodb2.types``. (Default: ``STRING``)
+        constant from ``txboto.dynamodb2.types``. (Default: ``STRING``)
         """
         self.name = name
         self.data_type = data_type
@@ -67,7 +67,7 @@ class HashKey(BaseSchemaField):
 
     Example::
 
-        >>> from boto.dynamodb2.types import NUMBER
+        >>> from txboto.dynamodb2.types import NUMBER
         >>> HashKey('username')
         >>> HashKey('date_joined', data_type=NUMBER)
 
@@ -81,7 +81,7 @@ class RangeKey(BaseSchemaField):
 
     Example::
 
-        >>> from boto.dynamodb2.types import NUMBER
+        >>> from txboto.dynamodb2.types import NUMBER
         >>> HashKey('username')
         >>> HashKey('date_joined', data_type=NUMBER)
 

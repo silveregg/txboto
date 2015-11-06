@@ -79,10 +79,10 @@ def load_regions():
     """
     Actually load the region/endpoint information from the JSON files.
 
-    By default, this loads from the default included ``boto/endpoints.json``
+    By default, this loads from the default included ``txboto/endpoints.json``
     file.
 
-    Users can override/extend this by supplying either a ``BOTO_ENDPOINTS``
+    Users can override/extend this by supplying either a ``txboto_ENDPOINTS``
     environment variable or a ``endpoints_path`` config variable, either of
     which should be an absolute path to the user's JSON file.
 

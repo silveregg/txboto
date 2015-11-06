@@ -38,7 +38,7 @@ def regions():
     Get all available regions for the Amazon DynamoDB service.
 
     :rtype: list
-    :return: A list of :class:`boto.regioninfo.RegionInfo`
+    :return: A list of :class:`txboto.regioninfo.RegionInfo`
     """
     from txboto.dynamodb2.layer1 import DynamoDBConnection
     return get_regions('dynamodb', connection_cls=DynamoDBConnection)

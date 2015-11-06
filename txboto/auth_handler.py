@@ -48,10 +48,10 @@ class AuthHandler(Plugin):
         :type host: string
         :param host: The host to which the request is being sent.
 
-        :type config: boto.pyami.Config
-        :param config: Boto configuration.
+        :type config: txboto.pyami.Config
+        :param config: TxBoto configuration.
 
-        :type provider: boto.provider.Provider
+        :type provider: txboto.provider.Provider
         :param provider: Provider details.
 
         Raises:
@@ -63,7 +63,7 @@ class AuthHandler(Plugin):
     def add_auth(self, http_request):
         """Invoked to add authentication details to request.
 
-        :type http_request: boto.connection.HTTPRequest
+        :type http_request: txboto.connection.HTTPRequest
         :param http_request: HTTP request that needs to be authenticated.
         """
         pass

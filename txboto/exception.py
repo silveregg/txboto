@@ -44,7 +44,7 @@ from txboto.resultset import ResultSet
 
 class BotoClientError(StandardError):
     """
-    General Boto Client error (error accessing AWS)
+    General TxBoto Client error (error accessing AWS)
     """
     def __init__(self, reason, *args):
         super(BotoClientError, self).__init__(reason, *args)

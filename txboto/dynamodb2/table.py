@@ -111,7 +111,7 @@ class Table(object):
             >>> conn = Table('users')
 
             # The full, minimum-extra-calls case.
-            >>> from boto import dynamodb2
+            >>> from txboto import dynamodb2
             >>> users = Table('users', schema=[
             ...     HashKey('username'),
             ...     RangeKey('date_joined', data_type=NUMBER)
@@ -795,7 +795,7 @@ class Table(object):
     def lookup(self, *args, **kwargs):
         """
         Look up an entry in DynamoDB. This is mostly backwards compatible
-        with boto.dynamodb. Unlike get_item, it takes hash_key and range_key first,
+        with txboto.dynamodb. Unlike get_item, it takes hash_key and range_key first,
         although you may still specify keyword arguments instead.
 
         Also unlike the get_item command, if the returned item has no keys
@@ -821,7 +821,7 @@ class Table(object):
         """
         Returns a new, blank item
 
-        This is mostly for consistency with boto.dynamodb
+        This is mostly for consistency with txboto.dynamodb
         """
         if not self.schema:
             yield self.describe()

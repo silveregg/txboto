@@ -388,9 +388,9 @@ class Provider(object):
         # get_instance_metadata is imported here because of a circular
         # dependency.
         txboto.log.debug("Retrieving credentials from metadata server.")
-        from boto.utils import get_instance_metadata
-        timeout = config.getfloat('Boto', 'metadata_service_timeout', 1.0)
-        attempts = config.getint('Boto', 'metadata_service_num_attempts', 1)
+        from txboto.utils import get_instance_metadata
+        timeout = config.getfloat('TxBoto', 'metadata_service_timeout', 1.0)
+        attempts = config.getint('TxBoto', 'metadata_service_num_attempts', 1)
         # The num_retries arg is actually the total number of attempts made,
         # so the config options is named *_num_attempts to make this more
         # clear to users.

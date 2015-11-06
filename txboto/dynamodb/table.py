@@ -110,7 +110,7 @@ class Table(object):
     :ivar create_time: The date and time that the table was created.
     :ivar status: The current status of the table.  One of:
         'ACTIVE', 'UPDATING', 'DELETING'.
-    :ivar schema: A :class:`boto.dynamodb.schema.Schema` object representing
+    :ivar schema: A :class:`txboto.dynamodb.schema.Schema` object representing
         the schema defined for the table.
     :ivar item_count: The number of items in the table.  This value is
         set only when the Table object is created or refreshed and
@@ -128,12 +128,12 @@ class Table(object):
     def __init__(self, layer2, response):
         """
 
-        :type layer2: :class:`boto.dynamodb.layer2.Layer2`
+        :type layer2: :class:`txboto.dynamodb.layer2.Layer2`
         :param layer2: A `Layer2` api object.
 
         :type response: dict
         :param response: The output of
-            `boto.dynamodb.layer1.Layer1.describe_table`.
+            `txboto.dynamodb.layer1.Layer1.describe_table`.
 
         """
         self.layer2 = layer2
@@ -152,20 +152,20 @@ class Table(object):
         Example usage::
 
             table = Table.create_from_schema(
-                boto.connect_dynamodb(),
+                txboto.connect_dynamodb(),
                 'tablename',
                 Schema.create(hash_key=('keyname', 'N')))
 
-        :type layer2: :class:`boto.dynamodb.layer2.Layer2`
+        :type layer2: :class:`txboto.dynamodb.layer2.Layer2`
         :param layer2: A ``Layer2`` api object.
 
         :type name: str
         :param name: The name of the table.
 
-        :type schema: :class:`boto.dynamodb.schema.Schema`
+        :type schema: :class:`txboto.dynamodb.schema.Schema`
         :param schema: The schema associated with the table.
 
-        :rtype: :class:`boto.dynamodb.table.Table`
+        :rtype: :class:`txboto.dynamodb.table.Table`
         :return: A Table object representing the table.
 
         """
@@ -307,7 +307,7 @@ class Table(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
         """
         result = yield self.layer2.get_item(self, hash_key, range_key,
                                             attributes_to_get, consistent_read,
@@ -404,7 +404,7 @@ class Table(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
         """
         return item_class(self, hash_key, range_key, attrs)
 
@@ -417,7 +417,7 @@ class Table(object):
             type of the value must match the type defined in the
             schema for the table.
 
-        :type range_key_condition: :class:`boto.dynamodb.condition.Condition`
+        :type range_key_condition: :class:`txboto.dynamodb.condition.Condition`
         :param range_key_condition: A Condition object.
             Condition object can be one of the following types:
 
@@ -473,7 +473,7 @@ class Table(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
         """
         return self.layer2.query(self, hash_key, *args, **kw)
 
@@ -486,7 +486,7 @@ class Table(object):
         :type scan_filter: A dict
         :param scan_filter: A dictionary where the key is the
             attribute name and the value is a
-            :class:`boto.dynamodb.condition.Condition` object.
+            :class:`txboto.dynamodb.condition.Condition` object.
             Valid Condition objects include:
 
              * EQ - equal (1)
@@ -539,11 +539,11 @@ class Table(object):
         :type item_class: Class
         :param item_class: Allows you to override the class used
             to generate the items. This should be a subclass of
-            :class:`boto.dynamodb.item.Item`
+            :class:`txboto.dynamodb.item.Item`
 
         :return: A TableGenerator (generator) object which will iterate
             over all results
-        :rtype: :class:`boto.dynamodb.layer2.TableGenerator`
+        :rtype: :class:`txboto.dynamodb.layer2.TableGenerator`
         """
         return self.layer2.scan(self, *args, **kw)
 
@@ -571,6 +571,6 @@ class Table(object):
 
         :return: A TableBatchGenerator (generator) object which will
             iterate over all results
-        :rtype: :class:`boto.dynamodb.table.TableBatchGenerator`
+        :rtype: :class:`txboto.dynamodb.table.TableBatchGenerator`
         """
         return TableBatchGenerator(self, keys, attributes_to_get)

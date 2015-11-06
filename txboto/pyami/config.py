@@ -36,19 +36,19 @@ import warnings
 from txboto.compat import expanduser, ConfigParser, StringIO
 
 
-# By default we use two locations for the boto configurations,
+# By default we use two locations for the txboto configurations,
 # /etc/boto.cfg and ~/.boto (which works on Windows and Unix).
 TxBotoConfigPath = '/etc/txboto.cfg'
 TxBotoConfigLocations = [TxBotoConfigPath]
 UserConfigPath = os.path.join(expanduser('~'), '.txboto')
 TxBotoConfigLocations.append(UserConfigPath)
 
-# If there's a BOTO_CONFIG variable set, we load ONLY
+# If there's a TXBOTO_CONFIG variable set, we load ONLY
 # that variable
 if 'TXBOTO_CONFIG' in os.environ:
     TxBotoConfigLocations = [expanduser(os.environ['TXBOTO_CONFIG'])]
 
-# If there's a BOTO_PATH variable set, we use anything there
+# If there's a TXBOTO_PATH variable set, we use anything there
 # as the current configuration locations, split with os.pathsep.
 elif 'TXBOTO_PATH' in os.environ:
     TxBotoConfigLocations = []

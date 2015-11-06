@@ -75,7 +75,7 @@ _hashfn = sha512
 from txboto.compat import json
 
 try:
-    from boto.compat.json import JSONDecodeError
+    from txboto.compat.json import JSONDecodeError
 except ImportError:
     JSONDecodeError = ValueError
 
@@ -233,7 +233,7 @@ def retry_url(url, retry_on_404=True, num_retries=10, timeout=None):
         # If not on the last iteration of the loop then sleep.
         if i + 1 != num_retries:
             time.sleep(min(2 ** i,
-                           txboto.config.get('Boto', 'max_retry_delay', 60)))
+                           txboto.config.get('TxBoto', 'max_retry_delay', 60)))
     txboto.log.error('Unable to read instance data, giving up')
     return ''
 
@@ -323,7 +323,7 @@ class LazyLoadMetadata(dict):
                 if i + 1 != self._num_retries:
                     next_sleep = min(
                         random.random() * 2 ** i,
-                        txboto.config.get('Boto', 'max_retry_delay', 60))
+                        txboto.config.get('TxBoto', 'max_retry_delay', 60))
                     time.sleep(next_sleep)
             else:
                 txboto.log.error('Unable to read meta data, giving up')
@@ -603,7 +603,7 @@ class AuthSMTPHandler(logging.handlers.SMTPHandler):
     This class extends the SMTPHandler in the standard Python logging module
     to accept a username and password on the constructor and to then use those
     credentials to authenticate with the SMTP server.  To use this, you could
-    add something like this in your boto config file:
+    add something like this in your txboto config file:
 
     [handler_hand07]
     class=boto.utils.AuthSMTPHandler
@@ -822,7 +822,7 @@ def notify(subject, body=None, html_body=None, to_string=None,
     if to_string:
         try:
             from_string = txboto.config.get_value('Notification',
-                                                  'smtp_from', 'boto')
+                                                  'smtp_from', 'txboto')
             msg = email.mime.multipart.MIMEMultipart()
             msg['From'] = from_string
             msg['Reply-To'] = from_string

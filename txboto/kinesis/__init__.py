@@ -37,7 +37,7 @@ def regions():
     Get all available regions for the Amazon Kinesis service.
 
     :rtype: list
-    :return: A list of :class:`boto.regioninfo.RegionInfo`
+    :return: A list of :class:`txboto.regioninfo.RegionInfo`
     """
     from txboto.kinesis.layer1 import KinesisConnection
     return get_regions('kinesis', connection_cls=KinesisConnection)

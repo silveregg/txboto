@@ -32,7 +32,7 @@
 
 import os
 
-# This allows boto modules to say "from boto.compat import json".  This is
+# This allows txboto modules to say "from txboto.compat import json".  This is
 # preferred so that all modules don't have to repeat this idiom.
 try:
     import simplejson as json
