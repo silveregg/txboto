@@ -367,7 +367,7 @@ class AWSAuthConnection(AWSBaseConnection):
                 request.authorize(connection=self)
                 log.debug('Final headers: %s' % request.headers)
                 request.start_time = datetime.now()
-
+                
                 response = yield self.send_request(request)
                 response_body = yield response.content()
                 response.reason = code2status(response.code, 'N/A')
@@ -409,12 +409,11 @@ class AWSAuthConnection(AWSBaseConnection):
                 response = e.response
                 ex = e
             except self.http_exceptions as e:
-                for unretryable in self.http_unretryable_exceptions:
-                    if isinstance(e, unretryable):
-                        log.debug('encountered unretryable {} exception, re-raising'
-                                  .format(e.__class__.__name__))
-                        raise
-                log.debug('encountered %s exception, reconnecting'
+                if isinstance(e, self.http_unretryable_exceptions):
+                    log.debug('encountered unretryable {} exception, re-raising'
+                              .format(e.__class__.__name__))
+                    raise
+                log.debug('encountered {} exception, reconnecting'
                           .format(e.__class__.__name__))
                 ex = e
             time.sleep(next_sleep)
