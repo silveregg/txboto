@@ -39,6 +39,7 @@ from twisted.internet import reactor, error
 from twisted.web import error as web_error
 from twisted.web.client import Agent, ProxyAgent
 from twisted.web.client import HTTPConnectionPool
+from twisted.web.client import ResponseNeverReceived
 
 from txboto import UserAgent, config, log
 
@@ -177,7 +178,8 @@ class AWSBaseConnection(object):
         self.client = httpclient(**kw)
 
         self.http_exceptions = (error.ConnectError, web_error.Error,
-                                error.ConnectionDone)
+                                error.ConnectionDone, error.ConnectionLost,
+                                ResponseNeverReceived)
         # define subclasses of the above that are not retryable.
         self.http_unretryable_exceptions = (SSL.Error,
                                             error.CertificateError,
