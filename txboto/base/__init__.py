@@ -32,16 +32,15 @@ Handles connections to AWS
 """
 from __future__ import absolute_import
 
-from txboto.compat import six, quote
-
 from treq.client import HTTPClient
+
 from twisted.internet import reactor, error
 from twisted.web import error as web_error
-from twisted.web.client import Agent, ProxyAgent
-from twisted.web.client import HTTPConnectionPool
-from twisted.web.client import ResponseNeverReceived
+from twisted.web.client import Agent, ProxyAgent, HTTPConnectionPool, \
+    ResponseFailed, RequestTransmissionFailed, ResponseNeverReceived
 
 from txboto import UserAgent, config, log
+from txboto.compat import six, quote
 
 from OpenSSL import SSL
 
@@ -179,7 +178,12 @@ class AWSBaseConnection(object):
 
         self.http_exceptions = (error.ConnectError, web_error.Error,
                                 error.ConnectionDone, error.ConnectionLost,
+                                error.ConnectionRefusedError,
+                                error.ConnectingCancelledError,
+                                error.TimeoutError,
+                                ResponseFailed, RequestTransmissionFailed,
                                 ResponseNeverReceived)
+
         # define subclasses of the above that are not retryable.
         self.http_unretryable_exceptions = (SSL.Error,
                                             error.CertificateError,
