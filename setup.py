@@ -24,10 +24,11 @@ CLASSIFIERS = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 INSTALL_REQUIRES = [
-    'treq==15.0.0',
-    'twisted>=12.3.0',
-    'requests==2.8.1',
-    'six>=1.10.0'
+    'treq==16.12.0',
+    'twisted==16.6.0',
+    'requests==2.12.4',
+    'six==1.10.0',
+    'h2==2.5.1'
 ]
 
 ##########
