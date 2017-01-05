@@ -44,14 +44,14 @@ import logging.config
 
 from twisted.python import log as twisted_log
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __title__ = "txboto"
 __description__ = "AWS implementation for Twisted, based on Boto"
 __uri__ = "https://www.github.com/silveregg/txboto"
 
 __author__ = "Michael Franke"
-__email__ = "mf@hlinux.net"
+__email__ = "michael@silveregg.co.jp"
 
 __license__ = "BSD-3"
 
