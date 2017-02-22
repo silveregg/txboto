@@ -195,7 +195,10 @@ class AWSBaseConnection(object):
 
         headers = {}
         for k, v in http_request.headers.items():
-            headers[k] = v.encode("utf-8") if isinstance(v, unicode) else v
+            if six.PY3:
+                headers[k] = v.encode("utf-8") if isinstance(v, str) else v
+            else:
+                headers[k] = v.encode("utf-8") if isinstance(v, unicode) else v
 
         if 'Content-Length' in http_request.headers:
             # This is most annoying bug in treq
