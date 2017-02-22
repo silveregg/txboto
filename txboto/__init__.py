@@ -44,7 +44,7 @@ import logging.config
 
 from twisted.python import log as twisted_log
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 __title__ = "txboto"
 __description__ = "AWS implementation for Twisted, based on Boto"
