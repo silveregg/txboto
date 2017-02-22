@@ -16,19 +16,20 @@ CLASSIFIERS = [
     "License :: OSI Approved :: BSD License",
     "Natural Language :: English",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 2",
     "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python",
     "Topic :: Internet",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 INSTALL_REQUIRES = [
-    'treq==16.12.0',
-    'twisted==16.6.0',
-    'requests==2.12.4',
-    'six==1.10.0',
-    'h2==2.5.1'
+    'treq>=16.12.0',
+    'twisted>=16.6.0',
+    'requests>=2.12.4',
+    'six>=1.10.0',
+    'h2>=2.5.1'
 ]
 
 ##########
