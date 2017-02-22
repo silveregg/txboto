@@ -38,7 +38,7 @@ import xml.sax
 import txboto
 
 from txboto import handler
-from txboto.compat import json, StandardError
+from txboto.compat import json, StandardError, to_str
 from txboto.resultset import ResultSet
 
 
@@ -124,7 +124,7 @@ class BotoServerError(StandardError):
                 except (TypeError, xml.sax.SAXParseException):
                     # What if it's JSON? Let's try that.
                     try:
-                        parsed = json.loads(self.body)
+                        parsed = json.loads(to_str(self.body))
 
                         if 'RequestId' in parsed:
                             self.request_id = parsed['RequestId']

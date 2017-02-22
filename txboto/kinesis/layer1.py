@@ -30,12 +30,13 @@
 
 
 import base64
-import json
 import six
 
 import txboto
 
 from twisted.internet import defer
+
+from txboto.compat import json, to_str
 
 from txboto.regioninfo import RegionInfo
 
@@ -899,9 +900,9 @@ class KinesisConnection(AWSQueryConnection):
         txboto.log.debug(response_body)
         if response.code == 200:
             if response_body:
-                defer.returnValue(json.loads(response_body))
+                defer.returnValue(json.loads(to_str(response_body)))
         else:
-            json_body = json.loads(response_body)
+            json_body = json.loads(to_str(response_body))
             fault_name = json_body.get('__type', None)
             exception_class = self._faults.get(fault_name, self.ResponseError)
             raise exception_class(response.code, response.reason,

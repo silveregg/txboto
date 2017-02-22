@@ -350,6 +350,7 @@ class AWSAuthConnection(AWSBaseConnection):
         log.debug('Url: %s' % request.url)
         log.debug('Data: %s' % request.body)
         log.debug('Headers: %s' % request.headers)
+        returnValue = None
         response = None
         body = None
         ex = None
@@ -358,7 +359,6 @@ class AWSAuthConnection(AWSBaseConnection):
         else:
             num_retries = override_num_retries
         i = 0
-
         while i <= num_retries:
             # Use binary exponential backoff to desynchronize client requests.
             next_sleep = min(random.random() * (2 ** i),
@@ -367,7 +367,7 @@ class AWSAuthConnection(AWSBaseConnection):
                 request.authorize(connection=self)
                 log.debug('Final headers: %s' % request.headers)
                 request.start_time = datetime.now()
-                
+
                 response = yield self.send_request(request)
                 response_body = yield response.content()
                 response.reason = code2status(response.code, 'N/A')
@@ -403,7 +403,8 @@ class AWSAuthConnection(AWSBaseConnection):
                         yield defer.maybeDeferred(
                             self.request_hook.handle_request_data,
                             request, response)
-                    defer.returnValue((response, response_body,))
+                    returnValue = (response, response_body,)
+                    break
             except PleaseRetryException as e:
                 log.debug('encountered a retry exception: {}'.foramt(e))
                 response = e.response
@@ -418,6 +419,9 @@ class AWSAuthConnection(AWSBaseConnection):
                 ex = e
             time.sleep(next_sleep)
             i += 1
+
+        if isinstance(returnValue, tuple):
+            defer.returnValue(returnValue)
         # If we made it here, it's because we have exhausted our retries
         # and stil haven't succeeded.  So, if we have a response object,
         # use it to raise an exception.

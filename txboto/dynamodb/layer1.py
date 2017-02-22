@@ -38,7 +38,7 @@ from txboto.connection import AWSAuthConnection
 from txboto.exception import DynamoDBResponseError
 from txboto.provider import Provider
 from txboto.dynamodb import exceptions as dynamodb_exceptions
-from txboto.compat import json
+from txboto.compat import json, to_str
 
 from twisted.internet import defer
 
@@ -143,7 +143,7 @@ class Layer1(AWSAuthConnection):
         if response.status == 400:
             response_body = response.read().decode('utf-8')
             txboto.log.debug(response_body)
-            data = json.loads(response_body)
+            data = json.loads(to_str(response_body))
             if self.ThruputError in data.get('__type'):
                 self.throughput_exceeded_events += 1
                 msg = "%s, retry attempt %s" % (self.ThruputError, i)

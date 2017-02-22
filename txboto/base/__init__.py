@@ -91,7 +91,7 @@ class HTTPRequest(object):
         :param headers: HTTP headers, with key as name of the header and value
             as value of header.
 
-        :type body: string
+        :type body: string|bytes
         :param body: Body of the HTTP request. If not present, will be None or
             empty string ('').
         """
@@ -206,9 +206,14 @@ class AWSBaseConnection(object):
             headers = dict(headers)
             del headers['Content-Length']
 
+        if six.PY3 and isinstance(http_request.body, str):
+            data = http_request.body.encode('utf-8')
+        else:
+            data = http_request.body
+
         return self.client.request(method=http_request.method,
                                    url=http_request.url,
                                    headers=headers,
-                                   data=http_request.body,
+                                   data=data,
                                    allow_redirects=False,
                                    timeout=self.timeout)

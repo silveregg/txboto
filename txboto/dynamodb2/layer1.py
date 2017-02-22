@@ -34,7 +34,7 @@ from binascii import crc32
 from twisted.internet import defer
 
 import txboto
-from txboto.compat import json
+from txboto.compat import json, to_str
 from txboto.connection import AWSQueryConnection
 from txboto.exception import JSONResponseError
 from txboto.dynamodb2 import exceptions
@@ -2914,9 +2914,9 @@ class DynamoDBConnection(AWSQueryConnection):
         txboto.log.debug(response_body)
         if response.code == 200:
             if response_body:
-                defer.returnValue(json.loads(response_body))
+                defer.returnValue(json.loads(to_str(response_body)))
         else:
-            json_body = json.loads(response_body)
+            json_body = json.loads(to_str(response_body))
             fault_name = json_body.get('__type', None)
             exception_class = self._faults.get(fault_name, self.ResponseError)
             raise exception_class(response.code, response.reason,
@@ -2927,7 +2927,7 @@ class DynamoDBConnection(AWSQueryConnection):
         txboto.log.debug("Saw HTTP status: %s" % response.code)
         if response.code == 400:
             txboto.log.debug(response_body)
-            data = json.loads(response_body)
+            data = json.loads(to_str(response_body))
             if 'ProvisionedThroughputExceededException' in data.get('__type'):
                 self.throughput_exceeded_events += 1
                 msg = "%s, retry attempt %s" % (

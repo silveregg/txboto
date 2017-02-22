@@ -77,3 +77,9 @@ else:
     StandardError = StandardError
     long_type = long
     from ConfigParser import SafeConfigParser as ConfigParser
+
+
+def to_str(s, encoding='utf-8'):
+    if six.PY3 and isinstance(s, bytes):
+        return s.decode(encoding)
+    return s
