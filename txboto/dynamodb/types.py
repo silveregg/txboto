@@ -5,7 +5,7 @@ Python types and vice-versa.
 import base64
 from decimal import (Decimal, DecimalException, Context,
                      Clamped, Overflow, Inexact, Underflow, Rounded)
-from collections import Mapping
+from collections.abc import Mapping
 from txboto.dynamodb.exceptions import DynamoDBNumberError
 from txboto.compat import filter, map, six, long_type
 
